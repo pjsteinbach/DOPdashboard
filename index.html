@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Tablero Gral — Dirección Operativa</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <!-- Logo Izquierda -->
+            <img src="./asset/ico/logo_blanco.png" alt="Logo Izquierda">
+        </div>
+        <div class="title">TABLERO DE VISUALIZACIÓN</div>
+        <div class="logo">
+            <!-- Logo Derecha -->
+            <img src="./asset/ico/dph-imag-blanco.png" alt="Logo Derecha">
+        </div>
+    </header>
+
+    <aside id="summary-aside" aria-label="Resumen de items">
+        <!-- Filtro principal ubicado en la parte superior del main -->
+        <div class="filter-row">
+            <div class="filtro-container">
+                <label for="municipioSelect">Partido:</label>
+                <select id="municipioSelect">
+                    <option value="">Seleccione un partido</option>
+                </select>
+            </div>
+        </div>
+
+        <h3>VALORES TOTALES</h3>
+        <ul id="summary-list" aria-live="polite"></ul>
+
+        <div class="selector-container">
+            <button id="table_button" class="active">Tabla</button>
+            <button id="map_button">Mapa</button>
+        </div>
+    </aside>
+
+    <main>
+        <section class="grid-2x2" id="table-section">
+            <article class="card" id="card-horas">
+                <h2>HORAS MÁQUINA</h2>
+                <div class="content">
+                    <table id="table-horas"><thead></thead><tbody></tbody></table>
+                </div>
+            </article>
+            <article class="card" id="card-bombas">
+                <h2>BOMBAS Y ESTACIONES</h2>
+                <div class="content">
+                    <table id="table-bombas"><thead></thead><tbody></tbody></table>
+                </div>
+            </article>
+            <article class="card" id="card-convenios">
+                <h2>CONVENIOS</h2>
+                <div class="content">
+                    <table id="table-convenios"><thead></thead><tbody></tbody></table>
+                </div>
+            </article>
+            <article class="card" id="card-canos">
+                <h2>CAÑOS</h2>
+                <div class="content">
+                    <table id="table-canos"><thead></thead><tbody></tbody></table>
+                </div>
+            </article>
+        </section>
+        <section id="map-section">
+            <iframe id="iframe-selected" src="" frameborder="0"></iframe><!-- Aquí se cargará el mapa -->
+        </section>
+    </main>
+    <footer>
+        <h2>Dirección Operativa  |  Dirección Provincial de hidráulica  |  Subsecretaría de Recursos Hídricos  | Ministerio de Infraestructura y Servicios Públicos</h2>
+    </footer>
+
+    <script src="code.js"></script>
+</body>
+</html>
