@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Tablero Gral — Dirección Operativa</title>
+    <title>Tablero General - Dirección Operativa</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="./asset/ico/favico-prim.png">
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body>
@@ -23,12 +24,10 @@
     <aside id="summary-aside" aria-label="Resumen de items">
         <!-- Filtro principal ubicado en la parte superior del main -->
         <div class="filter-row">
-            <div class="filtro-container">
-                <label for="municipioSelect">Partido:</label>
-                <select id="municipioSelect">
-                    <option value="">Seleccione un partido</option>
-                </select>
-            </div>
+            <label for="municipioSelect">Partido:</label>
+            <select id="municipioSelect">
+                <option value="">Seleccione un partido</option>
+            </select>
         </div>
 
         <h3>VALORES TOTALES</h3>
@@ -77,5 +76,4 @@
 
     <script src="code.js"></script>
 </body>
-
 </html>
