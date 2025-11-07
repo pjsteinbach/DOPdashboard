@@ -5,10 +5,10 @@
     --header-height:60px;
     --footer-height:40px;
     --white-color:#f2f2f2;
-    --black-color:#0d0d0d;
+    --black-color:#313649;
     --primary-color:#59a4aa;
-    --secondary-color: #c47a6a;
-    --dark-gray-color:#8c8c8c;
+    --secondary-color: #9cd6c5;
+    --dark-gray-color:#848990;
     --light-gray-color:#c5c5c5;
     --tittle-font: "Nunito", sans-serif;
     --body-font: "Lexend", sans-serif;
@@ -55,6 +55,7 @@ header .title{
 
 /* Aside */
 #summary-aside{
+    position: relative;
     grid-area: aside;
     background: var(--light-gray-color);
     color: var(--black-color);
@@ -96,31 +97,41 @@ header .title{
 .filter-row{
     display:flex;
     width: 100%;
-    justify-content: space-between;
-    margin-bottom:18px;
+    align-items: center;
+    gap: var(--gap);
+    justify-content: start;
+    margin-bottom:24px;
 }
 .filter-row select{
-    padding:8px 10px;
-    border:1px solid var(--black-color);
-    border-radius:4px;
-    background:var(--white-color);
+    padding: 8px 10px;
+    width: 100%;
+    border: none;
+    border-bottom:1px solid var(--dark-gray-color);
+    background: transparent;
     font-family: var(--body-font);
-    color:var(--dark-gray-color);
+    color: var(--black-color);
 }
 .filter-row label{
     font-family: var(--body-font);
     font-size:.8rem;
     color:var(--black-color);
 }
-.selector-container{
-    display: flex;
-    gap: var(--gap);
-}
 
+.selector-container{
+    position: absolute;
+    height: 96px;
+    bottom: 32px;
+    right:0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .selector-container button{
-    padding:8px 16px;
+    height: 40px;
+    width: 120px;
+    text-align: center;
     border:none;
-    border-radius:4px;
+    border-radius:20px 0 0 20px;
     background:var(--dark-gray-color);
     color:var(--white-color);
     font-family: var(--body-font);
@@ -128,6 +139,9 @@ header .title{
 }
 #table_button.active, #map_button.active{
     background:var(--secondary-color);
+    color:var(--black-color);
+    box-shadow: -4px 0px 4px rgba(0,0,0,0.1);
+    z-index: 10;
 }
 
 /* Main */
@@ -136,7 +150,7 @@ main{
     padding:var(--gap);
     height: 100%;
     width: 100%;
-    background-color: var(--dark-gray-color);
+    background-color: var(--secondary-color);
 }
 
 .grid-2x2{
@@ -160,7 +174,7 @@ main{
 .card h2{
     margin:0 0 10px 0;
     font-size:1rem;
-    color:var(--secondary-color);
+    color:var(--black-color);
     font-family: var(--tittle-font);
 }
 table{
@@ -212,5 +226,120 @@ footer h2{
     font-size:1rem;
     font-weight:600;
     color: var(--light-gray-color);
+}
 
+/* Responsive: mobile / small screens */
+@media (max-width: 768px) {
+    /* One-column layout: header, aside, main, footer stacked */
+    body {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr auto;
+        grid-template-areas:
+            "header"
+            "aside"
+            "main"
+            "footer";
+        height: auto;
+        min-height: 100vh;
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+
+    /* Header adjustments */
+    header{
+        padding: 10px;
+        height: auto;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    header .logo img{
+        height: 32px;
+    }
+    header .title{
+        font-size: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Aside becomes full-width block above main */
+    #summary-aside{
+        position: relative;
+        width: 100%;
+        padding: calc(var(--gap) * 0.8);
+    }
+
+    /* Filter/selectors flow horizontally if space allows, otherwise stack */
+    .filter-row{
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .filter-row select{ font-size: .9rem; padding: 8px; }
+
+    /* Selector buttons: move inline under aside */
+    .selector-container{
+        position: static;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 8px;
+        height: auto;
+        right: auto;
+        bottom: auto;
+    }
+    .selector-container button{
+        width: auto;
+        height: 36px;
+        padding: 6px 12px;
+        border-radius: 8px;
+    }
+
+    /* Main content adjustments */
+    main{
+        padding: var(--gap);
+        height: auto;
+        background-color: var(--secondary-color);
+    }
+
+    /* Stack the grid cards vertically */
+    .grid-2x2{
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        gap: var(--gap);
+        height: auto;
+    }
+    .card{
+        max-height: none;
+        overflow: visible;
+    }
+
+    /* Tables become horizontally scrollable on small screens */
+    table{
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Make map section smaller on mobile */
+    #map-section{
+        height: 50vh;
+    }
+
+    /* Footer adjustments */
+    footer h2{
+        padding: 12px;
+        font-size: .5rem;
+    }
+}
+
+/* Extra-small screens */
+@media (max-width: 426px) {
+    header .logo img{ height: 24px; }
+    header .title{ font-size: 1rem; }
+    #summary-list .count{ font-size: 1.4rem; min-width: 28px; }
+    .selector-container button{ height: 34px; padding: 6px 10px; font-size: .9rem; }
+    #map-section{ height: 45vh; }
 }
