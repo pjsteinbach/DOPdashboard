@@ -504,23 +504,100 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function countRowsInTable(table){
         if(!table) return 0;
+
+        // special sums for certain tables
+        if (table.id === 'table-horas') return sumColumnInTable(table, ['horas']);
+        if (table.id === 'table-canos') return sumColumnInTable(table, ['retirados']);
+
         const tbody = table.tBodies && table.tBodies.length ? table.tBodies[0] : table.querySelector('tbody');
         if(!tbody) return 0;
         // count only TR elements that are not empty and not the "No hay datos" placeholder row
         return Array.from(tbody.querySelectorAll('tr')).filter(tr => {
             const cells = Array.from(tr.querySelectorAll('td,th'));
             if (cells.length === 0) return false;
-            // consider row meaningful if any cell has non-empty text (other than the placeholder)
-            // or contains an interactive element (like an anchor)
             const hasMeaningful = cells.some(cell => {
                 const txt = (cell.textContent || '').trim();
                 if (txt && txt.toLowerCase() !== 'no hay datos') return true;
-                // if there's an anchor or other interactive element, count it as meaningful
                 if (cell.querySelector('a[href], button, input')) return true;
                 return false;
             });
             return hasMeaningful;
         }).length;
+    }
+
+    function sumColumnInTable(table, possibleNames){
+        const tbody = table.tBodies && table.tBodies.length ? table.tBodies[0] : table.querySelector('tbody');
+        if(!tbody) return 0;
+
+        // find header index (case-insensitive)
+        let headers = Array.from(table.querySelectorAll('thead th'));
+        let colIndex = -1;
+        if (headers.length > 0) {
+            headers.some((th, idx) => {
+                const txt = (th.textContent || '').trim().toLowerCase();
+                if (possibleNames.some(n => n.toLowerCase() === txt)) {
+                    colIndex = idx;
+                    return true;
+                }
+                return false;
+            });
+        } else {
+            // fallback: try first row's cells as headers
+            const firstRow = table.querySelector('tr');
+            if (firstRow) {
+                headers = Array.from(firstRow.children);
+                headers.some((th, idx) => {
+                    const txt = (th.textContent || '').trim().toLowerCase();
+                    if (possibleNames.some(n => n.toLowerCase() === txt)) {
+                        colIndex = idx;
+                        return true;
+                    }
+                    return false;
+                });
+            }
+        }
+
+        // if header not found, try to infer by looking for numeric cells and summing any numeric-looking column
+        if (colIndex === -1) {
+            // try to find any column whose header contains a possible name substring
+            headers.some((th, idx) => {
+                const txt = (th.textContent || '').trim().toLowerCase();
+                if (possibleNames.some(n => txt.includes(n.toLowerCase()))) {
+                    colIndex = idx;
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        // if still not found, return 0
+        if (colIndex === -1) return 0;
+
+        let sum = 0;
+        Array.from(tbody.querySelectorAll('tr')).forEach(tr => {
+            const cells = Array.from(tr.querySelectorAll('td,th'));
+            if (cells.length <= colIndex) return;
+            let raw = (cells[colIndex].textContent || '').trim();
+            if (!raw) return;
+
+            // normalize numbers: handle thousand separators and decimal comma
+            let t = raw.replace(/\s/g, '');
+            if (t.includes(',') && t.includes('.')) {
+                // assume dots are thousands, comma decimal
+                t = t.replace(/\./g, '').replace(',', '.');
+            } else {
+                // replace comma with dot (decimal comma)
+                t = t.replace(',', '.');
+            }
+            // remove any non-numeric except minus and dot
+            t = t.replace(/[^0-9\.\-]+/g, '');
+            const n = parseFloat(t);
+            if (!isNaN(n)) sum += n;
+        });
+
+        // format: integer if whole, otherwise keep up to 2 decimals
+        if (Number.isInteger(sum)) return sum;
+        return parseFloat(sum.toFixed(2));
     }
 
     function buildSummary(){
