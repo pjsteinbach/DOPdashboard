@@ -6,40 +6,10 @@ const _findKeyIgnoreCase = (obj, keyLower) => {
     return Object.keys(obj).find(k => k.toLowerCase() === keyLower);
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-    const iframe = document.getElementById('iframe-selected');
-    const select = document.getElementById('municipioSelect');
-    if (!iframe || !select) return;
-
-    const updateIframe = () => {
-        const partido = select.value || '';
-        const info = partidosInfo[partido] ?? null;
-        const iframeKey = _findKeyIgnoreCase(info, 'iframe');
-        const src = iframeKey ? (info[iframeKey] ?? '').toString().trim() : '';
-
-        if (src) {
-            iframe.src = src;
-        } else {
-            // Si no hay valor, eliminar el atributo src para que no cargue nada
-            iframe.removeAttribute('src');
-        }
-    };
-
-    // Actualizar cuando el usuario cambie la selección
-    select.addEventListener('change', updateIframe);
-
-    // Observar cambios en las opciones (cuando se cargan desde info.csv)
-    const mo = new MutationObserver(() => updateIframe());
-    mo.observe(select, { childList: true });
-
-    // Llamada inicial por si ya hay una opción preseleccionada
-    updateIframe();
-});
-
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const res = await fetch('./asset/data/info.csv');
-        if (!res.ok) throw new Error(`Error fetching info.csv: ${res.status}`);
+        const res = await fetch('./asset/data/partidos.csv');
+        if (!res.ok) throw new Error(`Error fetching partidos.csv: ${res.status}`);
         const text = await res.text();
 
         const lines = text.replace(/\r\n/g, '\n').split('\n').filter(l => l.trim() !== '');
@@ -639,3 +609,165 @@ document.addEventListener('DOMContentLoaded', () => {
     // optional: expose a function for other scripts to trigger the summary update
     window.__updateSummaryAside = delayedUpdate;
 })();
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const select = document.getElementById('municipioSelect');
+    const extractP = document.getElementById('extract');
+    if (!select || !extractP) return;
+
+    // preserve default content to restore when no selection
+    const defaultContent = extractP.innerHTML;
+
+    // load datainfo.csv and build map by partido (case/diacritics insensitive matching later)
+    let datainfoMap = {};
+    try {
+        const rows = await loadCSV('./asset/data/info.csv').catch(() => []);
+        rows.forEach(r => {
+            const partidoKey = _findKeyIgnoreCase(r, 'partido') || Object.keys(r)[0];
+            const partido = (r[partidoKey] ?? '').toString().trim();
+            if (!partido) return;
+            const extractKey = _findKeyIgnoreCase(r, 'extracto') || _findKeyIgnoreCase(r, 'extract');
+            const extractVal = extractKey ? (r[extractKey] ?? '').toString() : '';
+            datainfoMap[partido] = extractVal;
+        });
+    } catch (err) {
+        console.error('Error cargando datainfo.csv:', err);
+    }
+    // expose for debugging if needed
+    window.datainfoMap = datainfoMap;
+
+    const lookupExtractFor = (partido) => {
+        if (!partido) return null;
+        // find key in datainfoMap ignoring case/diacritics
+        const found = Object.keys(datainfoMap).find(k =>
+            k.localeCompare(partido, 'es', { sensitivity: 'base' }) === 0
+        );
+        return found ? datainfoMap[found] : null;
+    };
+
+    const updateExtract = () => {
+        const partido = select.value || '';
+        if (!partido) {
+            // restore default
+            extractP.innerHTML = defaultContent;
+            return;
+        }
+        const txt = lookupExtractFor(partido);
+        if (txt && txt !== '') {
+            // set as plain text to avoid injecting HTML from CSV; restore defaultHtml when empty
+            extractP.textContent = txt;
+        } else {
+            extractP.innerHTML = defaultContent;
+        }
+    };
+
+    select.addEventListener('change', updateExtract);
+    // initial populate if preselected
+    const escapeHTML = s => s == null ? '' : String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
+    const applyExtractWithBreaks = () => {
+        const partido = select.value || '';
+        const txt = lookupExtractFor(partido);
+        if (txt && txt !== '') {
+            // escapar HTML del CSV y luego reemplazar '|' por <br>
+            extractP.innerHTML = escapeHTML(txt).replace(/\|/g, '<br>');
+        } else {
+            // restaurar comportamiento original (default content)
+            updateExtract();
+        }
+    };
+
+    select.addEventListener('change', applyExtractWithBreaks);
+    // initial populate si preseleccionado
+    if (select.value) applyExtractWithBreaks();
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.getElementById('copy-icon');
+    const extract = document.getElementById('extract');
+    if (!copyBtn || !extract) return;
+
+    copyBtn.addEventListener('click', async () => {
+        const text = extract.innerText || extract.textContent || '';
+        if (!text) return;
+
+        try {
+            if (navigator.clipboard?.writeText) {
+                await navigator.clipboard.writeText(text);
+            } else {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'absolute';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                ta.setSelectionRange(0, ta.value.length);
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+
+            // breve indicación visual accesible
+            copyBtn.setAttribute('aria-live', 'polite');
+            copyBtn.setAttribute('aria-label', 'Copiado');
+            copyBtn.classList.add('copied');
+            setTimeout(() => {
+                copyBtn.classList.remove('copied');
+                copyBtn.setAttribute('aria-label', 'Copiar');
+            }, 1500);
+        } catch (err) {
+            console.error('Error copiando al portapapeles:', err);
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const select = document.getElementById('municipioSelect');
+    const iframe = document.getElementById('iframe-selected');
+    if (!select || !iframe) return;
+
+    // load info.csv and build a map partido -> iframe value (case preserved)
+    let rows = [];
+    try {
+        rows = await loadCSV('./asset/data/info.csv').catch(() => []);
+    } catch (err) {
+        rows = [];
+    }
+
+    const iframeMap = {};
+    rows.forEach(r => {
+        const partidoKey = _findKeyIgnoreCase(r, 'partido') || Object.keys(r)[0];
+        const partido = (r[partidoKey] ?? '').toString().trim();
+        if (!partido) return;
+        const iframeKey = _findKeyIgnoreCase(r, 'iframe');
+        const iframeVal = iframeKey ? (r[iframeKey] ?? '').toString().trim() : '';
+        if (iframeVal) iframeMap[partido] = iframeVal;
+    });
+
+    const lookupIframeFor = (partido) => {
+        if (!partido) return null;
+        const found = Object.keys(iframeMap).find(k =>
+            k.localeCompare(partido, 'es', { sensitivity: 'base' }) === 0
+        );
+        return found ? iframeMap[found] : null;
+    };
+
+    const updateIframe = () => {
+        const partido = select.value || '';
+        const src = lookupIframeFor(partido);
+        if (src) {
+            if (iframe.getAttribute('src') !== src) iframe.setAttribute('src', src);
+        } else {
+            // remove src when no matching iframe to avoid showing stale content
+            iframe.removeAttribute('src');
+        }
+    };
+
+    select.addEventListener('change', updateIframe);
+    // initial update if preselected
+    if (select.value) updateIframe();
+});
