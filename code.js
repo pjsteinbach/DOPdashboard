@@ -90,6 +90,27 @@ partidos.sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
 document.addEventListener('DOMContentLoaded', () => {
     const select = document.getElementById('municipioSelect');
     if (!select) return;
+
+    // If select is already populated (more than the empty placeholder), avoid duplicating options
+    if (select.options.length > 1) {
+        // If nothing is selected, explicitly ensure the empty option is selected
+        if (!select.value) select.value = '';
+        return;
+    }
+
+    // Ensure there's an empty default option first
+    let firstEmpty = Array.from(select.options).find(o => o.value === '');
+    if (!firstEmpty) {
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = 'Seleccione un partido';
+        opt.selected = true;
+        select.appendChild(opt);
+    } else {
+        // ensure it's selected when there's no other selection
+        if (!select.value) select.value = '';
+    }
+
     const fragment = document.createDocumentFragment();
     partidos.forEach(name => {
         const option = document.createElement('option');
@@ -328,9 +349,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Use keys from first row to build header (preserves CSV order)
         let keys = Object.keys(rows[0]);
 
-        // For table-horas omit the 'partido' column
+        // For table-horas omit the 'partido', 'inicio', 'final' and 'inversion' columns
         if (tableEl.id === 'table-horas') {
-            keys = keys.filter(k => k.toLowerCase() !== 'partido');
+            keys = keys.filter(k => {
+                const lowerKey = k.toLowerCase();
+                return lowerKey !== 'partido' && lowerKey !== 'inicio' && lowerKey !== 'final' && lowerKey !== 'inversion' ;
+            });
         }
         // For table-bombas omit 'partido' and 'coordenadas' from visible columns
         if (tableEl.id === 'table-bombas') {
@@ -612,7 +636,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', async () => {
     const select = document.getElementById('municipioSelect');
-    const extractP = document.getElementById('extract');
+    const extractP = document.getElementById('extract-p');
+    const extractT = document.getElementById('extract-t');
+    // Force empty default title so when nothing is selected the H4 is blank
+    const defaultTitle = '';
+
+    // set title h4 based on selected partido (tries partidosInfo case-insensitive, falls back to the raw name)
+    const setExtractTitle = (partido) => {
+        if (!extractT) return;
+        if (!partido) {
+            extractT.textContent = defaultTitle;
+            return;
+        }
+
+        let title = partido;
+        try {
+            // try direct lookup
+            if (partidosInfo && partidosInfo[partido]) {
+                const info = partidosInfo[partido];
+                const key = _findKeyIgnoreCase(info, 'partido') || _findKeyIgnoreCase(info, 'nombre');
+                if (key && info[key]) title = info[key].toString();
+            } else if (partidosInfo) {
+                // try case-insensitive match
+                const foundKey = Object.keys(partidosInfo).find(k =>
+                    k.localeCompare(partido, 'es', { sensitivity: 'base' }) === 0
+                );
+                if (foundKey) {
+                    const info = partidosInfo[foundKey];
+                    const key = _findKeyIgnoreCase(info, 'partido') || _findKeyIgnoreCase(info, 'nombre');
+                    if (key && info[key]) title = info[key].toString();
+                }
+            }
+        } catch (e) {
+            // ignore lookup errors and fallback to partido
+        }
+        extractT.textContent = title;
+    };
+
+    // update title on change and initialize (ensure blank when nothing selected)
+    if (select) {
+        select.addEventListener('change', () => setExtractTitle(select.value || ''));
+        setExtractTitle(select.value || '');
+    }
     if (!select || !extractP) return;
 
     // preserve default content to restore when no selection
@@ -688,11 +753,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 document.addEventListener('DOMContentLoaded', () => {
     const copyBtn = document.getElementById('copy-icon');
-    const extract = document.getElementById('extract');
+    const extract = document.getElementById('extract-p');
+    const extractT = document.getElementById('extract-t');
     if (!copyBtn || !extract) return;
 
     copyBtn.addEventListener('click', async () => {
-        const text = extract.innerText || extract.textContent || '';
+        const title = extractT ? ((extractT.innerText || extractT.textContent || '').toString().trim()) : '';
+        const body = (extract.innerText || extract.textContent || '').toString().trim();
+        const text = title ? (title + ':\n' + body) : body;
         if (!text) return;
 
         try {
