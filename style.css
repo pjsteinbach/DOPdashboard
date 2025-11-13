@@ -29,8 +29,9 @@ body {
         "aside main"   /* Fila 2: aside a la izquierda y main a la derecha */
         "footer footer";/* Fila 3: el footer ocupa ambas columnas */
     
-    height: 100vh;
+    max-height: 100vh;
     background-color: var(--white-color);
+    overflow: hidden;
 }
 
 /*Header*/
@@ -78,7 +79,7 @@ header .title{
     border-bottom: 1px solid var(--dark-gray-color);
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:flex-start;
     gap:var(--gap);
 }
 #summary-list li:last-child{
@@ -88,16 +89,16 @@ header .title{
     font-family: var(--tittle-font);
     font-size: 2rem;
     font-weight: 700;
-    min-width: 34px;
+    width: 4rem;
+    height: 2rem;
+    line-height: 2rem;
     text-align:right;
 }
 #summary-list .title{flex:1;
     font-size: 1rem;
     padding-left:8px;
     color:#222;
-}
-
-.filter-row{
+}.filter-row{
     display:flex;
     width: 100%;
     align-items: center;
@@ -118,9 +119,7 @@ header .title{
     font-family: var(--body-font);
     font-size:.8rem;
     color:var(--black-color);
-}
-
-.extract{
+}.extract{
     position: relative;
     margin-top: 16px;
     font-size: .85rem;
@@ -140,30 +139,39 @@ header .title{
     margin-bottom: 4px;
     font-family: var(--tittle-font);
 }
-.extract p{
-    margin-top: 8px;
+.copy-content{
     padding: 8px;
     border-radius: 4px;
-    font-family: var(--body-font);
-    font-weight: 300;
+    margin-top: 8px;
     background-color: var(--white-color);
 }
-
+.extract h4{
+    display: none;
+    font-family: var(--tittle-font);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.extract p{
+    font-family: var(--body-font);
+    font-weight: 300;
+    margin-bottom: 8px;
+}
 .selector-container{
     position: absolute;
-    height: 96px;
-    bottom: 12px;
-    right:0;
+    bottom: 100px;
+    right: -100px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    transform: rotate(-90deg);
 }
 .selector-container button{
     height: 40px;
     width: 120px;
     text-align: center;
     border:none;
-    border-radius:20px 0 0 20px;
+    border-radius:20px 20px 0 0;
     background:var(--dark-gray-color);
     color:var(--white-color);
     font-family: var(--body-font);
@@ -172,36 +180,34 @@ header .title{
 #table_button.active, #map_button.active{
     background:var(--secondary-color);
     color:var(--black-color);
-    box-shadow: -4px 0px 4px rgba(0,0,0,0.1);
+    box-shadow: 4px -2px 4px rgba(0,0,0,0.1);
     z-index: 10;
 }
 
 /* Main */
 main{
     grid-area: main;
-    padding:var(--gap);
-    height: 100%;
-    width: 100%;
-    background-color: var(--secondary-color);
+    padding: var(--gap);
+    max-height: calc(100vh - var(--header-height) - var(--footer-height));
+    font-family: var(--body-font);
+    background: var(--secondary-color);
+    color: var(--black-color);
 }
-
 .grid-2x2{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:var(--gap);
     grid-auto-rows: 1fr;
-    height: 100%;
-    width: 100%;
+    min-height: calc(100vh - var(--header-height) - var(--footer-height) - (var(--gap) * 2));
 }
-
 .card{
     background:var(--white-color);
     border-radius:4px;
     padding:12px;
     display:flex;
     flex-direction:column;
-    max-height: 41vh;
-    overflow-y: scroll;
+    max-height: calc((100vh - var(--header-height) - var(--footer-height) - var(--gap) * 2) * 0.5 - var(--gap));
+    overflow: auto;
 }
 .card h2{
     margin:0 0 10px 0;
@@ -245,12 +251,15 @@ th{
 /* Footer */
 footer{
     grid-area: footer;
-    height: var(--footer-height);
-    padding:16px 20px;
+    background: var(--black-color);
+    color: var(--white-color);
     display: flex;
     justify-content: center;
     align-items: center;
-    background:var(--black-color);
+    height: var(--footer-height);
+    font-family: var(--tittle-font);
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 footer h2{
     font-family: var(--tittle-font);
@@ -258,120 +267,4 @@ footer h2{
     font-size:1rem;
     font-weight:600;
     color: var(--light-gray-color);
-}
-
-/* Responsive: mobile / small screens */
-@media (max-width: 768px) {
-    /* One-column layout: header, aside, main, footer stacked */
-    body {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto 1fr auto;
-        grid-template-areas:
-            "header"
-            "aside"
-            "main"
-            "footer";
-        height: auto;
-        min-height: 100vh;
-        width: 100%;
-        max-width: 100vw;
-        overflow-x: hidden;
-    }
-
-    /* Header adjustments */
-    header{
-        padding: 10px;
-        height: auto;
-        gap: 8px;
-        flex-wrap: wrap;
-        align-items: center;
-    }
-    header .logo img{
-        height: 32px;
-    }
-    header .title{
-        font-size: 1rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    /* Aside becomes full-width block above main */
-    #summary-aside{
-        position: relative;
-        width: 100%;
-        padding: calc(var(--gap) * 0.8);
-    }
-
-    /* Filter/selectors flow horizontally if space allows, otherwise stack */
-    .filter-row{
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-    .filter-row select{ font-size: .9rem; padding: 8px; }
-
-    /* Selector buttons: move inline under aside */
-    .selector-container{
-        position: static;
-        flex-direction: row;
-        justify-content: flex-end;
-        gap: 8px;
-        margin-top: 8px;
-        height: auto;
-        right: auto;
-        bottom: auto;
-    }
-    .selector-container button{
-        width: auto;
-        height: 36px;
-        padding: 6px 12px;
-        border-radius: 8px;
-    }
-
-    /* Main content adjustments */
-    main{
-        padding: var(--gap);
-        height: auto;
-        background-color: var(--secondary-color);
-    }
-
-    /* Stack the grid cards vertically */
-    .grid-2x2{
-        grid-template-columns: 1fr;
-        grid-auto-rows: auto;
-        gap: var(--gap);
-        height: auto;
-    }
-    .card{
-        max-height: none;
-        overflow: visible;
-    }
-
-    /* Tables become horizontally scrollable on small screens */
-    table{
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Make map section smaller on mobile */
-    #map-section{
-        height: 50vh;
-    }
-
-    /* Footer adjustments */
-    footer h2{
-        padding: 12px;
-        font-size: .5rem;
-    }
-}
-
-/* Extra-small screens */
-@media (max-width: 426px) {
-    header .logo img{ height: 24px; }
-    header .title{ font-size: 1rem; }
-    #summary-list .count{ font-size: 1.4rem; min-width: 28px; }
-    .selector-container button{ height: 34px; padding: 6px 10px; font-size: .9rem; }
-    #map-section{ height: 45vh; }
 }
