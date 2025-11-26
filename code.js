@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const keys = ['fecha', 'diametro', 'solicitados', 'retirados', 'pendientes'];
+        const keys = ['fecha', 'material', 'diametro', 'entregados'];
         const thead = document.createElement('thead');
         const headRow = document.createElement('tr');
         keys.forEach(k => {
@@ -501,7 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // special sums for certain tables
         if (table.id === 'table-horas') return sumColumnInTable(table, ['horas']);
-        if (table.id === 'table-canos') return sumColumnInTable(table, ['retirados']);
+        if (table.id === 'table-canos') return sumColumnInTable(table, ['entregados']);
 
         const tbody = table.tBodies && table.tBodies.length ? table.tBodies[0] : table.querySelector('tbody');
         if(!tbody) return 0;
