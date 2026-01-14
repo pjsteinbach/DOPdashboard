@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tableEl.id === 'table-horas') {
             keys = keys.filter(k => {
                 const lowerKey = k.toLowerCase();
-                return lowerKey !== 'partido' && lowerKey !== 'inicio' && lowerKey !== 'final' && lowerKey !== 'inversion' ;
+                return lowerKey !== 'id' && lowerKey !== 'partido' && lowerKey !== 'inicio' && lowerKey !== 'final' && lowerKey !== 'inversion';
             });
         }
         // For table-bombas omit 'partido' and 'coordenadas' from visible columns
@@ -839,3 +839,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     // initial update if preselected
     if (select.value) updateIframe();
 });
+
