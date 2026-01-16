@@ -1,0 +1,94 @@
+fecha,pedido,partido,diametro,entregados,material,diametro
+3/12/2024,,General La Madrid,CH800,2,Chapa corrugada,800
+7/1/2025,,Balcarce,H1000,5,Hormigón,1000
+6/2/2025,,General La Madrid,CH800,3,Chapa corrugada,800
+7/2/2025,,Balcarce,CH1000,5,Chapa corrugada,1000
+17/2/2025,,Rivadavia,CH1000,6,Chapa corrugada,1000
+19/2/2025,,Rivadavia,CH1000,4,Chapa corrugada,1000
+7/3/2025,,Carlos Casares,H800,12,Hormigón,800
+12/3/2025,,Carlos Casares,H800,16,Hormigón,800
+4/4/2025,https://drive.google.com/file/d/1hjejwjIgouN_LceFMyQaf79YPdy-zgOn/view?usp=drive_link,General Viamonte,H1000,11,Hormigón,1000
+11/4/2025,,General Viamonte,H1000,11,Hormigón,1000
+11/4/2025,,Pehuajó,H800,15,Hormigón,800
+16/4/2025,Estancia VP s.a,General Viamonte,H1000,10,Hormigón,1000
+25/4/2025,,General Viamonte,H1000,10,Hormigón,1000
+28/4/2025,Estancia VP s.a,General Viamonte,H1000,5,Hormigón,1000
+3/6/2025,,General Viamonte,H1000,8,Hormigón,1000
+13/5/2025,CAÑOS_NAVARRO,Navarro,H800,14,Hormigón,800
+14/5/2025,CAÑOS_NAVARRO,Navarro,H800,11,Hormigón,800
+14/5/2025,,Carlos Casares,CH800,6,Chapa corrugada,800
+2/6/2025,CH800,Carlos Casares,CH800,10,Chapa corrugada,800
+11/6/2025,https://drive.google.com/file/d/1vuSByfYwXVdH0NAmdtdqRSeinx12V8rT/view?usp=drive_link,General La Madrid,CH800,9,Chapa corrugada,800
+4/6/2025,https://drive.google.com/file/d/1zi_Cy1LmJNGtQk5nOGVnEX_4T4CxMEnt/view?usp=drive_link,Coronel Suárez,CH800,7,Chapa corrugada,800
+4/7/2025,https://drive.google.com/file/d/1S8cBD9w2CYdy-Of-sc4dM_vqVZNVJ9d0/view?usp=drive_link,Coronel Suárez,CH800,4,Chapa corrugada,800
+12/6/2025,https://drive.google.com/file/d/1pa4j7hTZ8TC_b7WsFKcDvOpuYA_RoAl8/view?usp=drive_link,Las Flores,CH800,6,Chapa corrugada,800
+1/7/2025,https://drive.google.com/file/d/1Urslev0xO2J_GIsCtLeeKB4zXdVM2vJP/view?usp=drive_link,Suipacha,CH800,20,Chapa corrugada,800
+3/7/2025,https://drive.google.com/file/d/1Urslev0xO2J_GIsCtLeeKB4zXdVM2vJP/view?usp=drive_link,Suipacha,H800,10,Hormigón,800
+3/7/2025,https://drive.google.com/file/d/1Urslev0xO2J_GIsCtLeeKB4zXdVM2vJP/view?usp=drive_link,Suipacha,CH800,3,Chapa corrugada,800
+4/7/2025,https://drive.google.com/file/d/1S8cBD9w2CYdy-Of-sc4dM_vqVZNVJ9d0/view?usp=drive_link,Coronel Suárez,CH800,7,Chapa corrugada,800
+8/7/2025,https://drive.google.com/file/d/1oWWlR15BnRbhpDqRx6Jvj0SHpGcshHFC/view?usp=drive_link,Pila,CH800,5,Chapa corrugada,800
+13/8/2025,,Pehuajó,CH800,6,Chapa corrugada,800
+21/8/2025,https://drive.google.com/drive/folders/15_XL5_0lztmKToKTi8cmRIHlKMiTCo7N,Nueve de Julio,CH1000,4,Chapa corrugada,1000
+26/8/2025,,Pehuajó,CH800,6,Chapa corrugada,800
+27/8/2025,Pila,Pila,CH800,6,Chapa corrugada,800
+28/8/2025,Pila,Pila,CH800,6,Chapa corrugada,800
+3/9/2025,Pedido Casares,Carlos Casares,CH800,4,Chapa corrugada,800
+3/9/2025,Pedido C. Casares,Carlos Casares,CH1000,4,Chapa corrugada,1000
+5/9/2025,S/NOTA,Veinticinco de Mayo,CH800,3,Chapa corrugada,800
+5/9/2025,S/NOTA,Veinticinco de Mayo,CH1000,3,Chapa corrugada,1000
+8/9/2025,S/NOTA,Veinticinco de Mayo,CH800,4,Chapa corrugada,800
+8/9/2025,S/NOTA,Veinticinco de Mayo,CH1000,4,Chapa corrugada,1000
+8/9/2025,S/NOTA,Veinticinco de Mayo,CH800,3,Chapa corrugada,800
+8/9/2025,S/NOTA,Veinticinco de Mayo,CH1000,3,Chapa corrugada,1000
+6/10/2025,https://drive.google.com/file/d/1x7vtbHXxr55TpFqrGIQ68DXJUc8IgtnC/view?usp=drive_link,Salto,H1000,7,Hormigón,1000
+6/10/2025,https://drive.google.com/file/d/1x7vtbHXxr55TpFqrGIQ68DXJUc8IgtnC/view?usp=drive_link,Salto,CH800,3,Chapa corrugada,800
+7/10/2025,https://drive.google.com/file/d/1x7vtbHXxr55TpFqrGIQ68DXJUc8IgtnC/view?usp=drive_link,Salto,H1000,7,Hormigón,1000
+7/10/2025,https://drive.google.com/file/d/1x7vtbHXxr55TpFqrGIQ68DXJUc8IgtnC/view?usp=drive_link,Salto,CH800,3,Chapa corrugada,800
+14/10/2025,https://drive.google.com/file/d/1241AEoKEzr3BW34rBlqY_etjzp0s-XYm/view?usp=drive_link,Balcarce,CH800,2,Chapa corrugada,800
+14/10/2025,https://drive.google.com/file/d/1241AEoKEzr3BW34rBlqY_etjzp0s-XYm/view?usp=drive_link,Balcarce,CH1000,2,Chapa corrugada,1000
+14/10/2025,https://drive.google.com/file/d/1241AEoKEzr3BW34rBlqY_etjzp0s-XYm/view?usp=drive_link,Balcarce,CH800,6,Chapa corrugada,800
+15/10/2025,https://drive.google.com/file/d/1LQPQ1xUfs361PFL78fMsz7jNwzPTumK4/view?usp=drive_link,Carlos Casares,CH800,12,Chapa corrugada,800
+20/10/2025,9 de Julio,Nueve de Julio,CH1000,4,Chapa corrugada,1000
+21/10/2025,S/NOTA,Veinticinco de Mayo,H1000,2,Hormigón,1000
+21/10/2025,25 de mayo,Veinticinco de Mayo,H800,12,Hormigón,800
+21/10/2025,25 de mayo,Veinticinco de Mayo,H1000,4,Hormigón,1000
+21/10/2025,25 de mayo,Veinticinco de Mayo,H800,8,Hormigón,800
+23/10/2025,https://drive.google.com/file/d/1z22DsMca3bJ4BmSQX8cIjssPQQUxYYyi/view?usp=drive_link,Balcarce,CH1000,6,Chapa corrugada,1000
+23/10/2025,https://drive.google.com/file/d/1z22DsMca3bJ4BmSQX8cIjssPQQUxYYyi/view?usp=drive_link,Balcarce,CH800,6,Chapa corrugada,800
+23/10/2025,https://drive.google.com/file/d/1rcRIUkopK0Mgss_qJdLCcPShUp-geArd/view?usp=drive_link,Roque Pérez,H1000,12,Hormigón,1000
+23/10/2025,https://drive.google.com/file/d/1rcRIUkopK0Mgss_qJdLCcPShUp-geArd/view?usp=drive_link,Roque Pérez,H800,5,Hormigón,800
+23/10/2025,https://drive.google.com/file/d/1x7vtbHXxr55TpFqrGIQ68DXJUc8IgtnC/view?usp=drive_link,Salto,H1000,7,Hormigón,1000
+28/10/2025,https://drive.google.com/file/d/1YgldB6A2SvjEjrqqmDvzdlO1bvZXzdFb/view?usp=drive_link,Tordillo,CH800,6,Chapa corrugada,800
+29/10/2025,https://drive.google.com/file/d/1x7vtbHXxr55TpFqrGIQ68DXJUc8IgtnC/view?usp=drive_link,Salto,H1000,3,Hormigón,1000
+29/10/2025,https://drive.google.com/file/d/1x7vtbHXxr55TpFqrGIQ68DXJUc8IgtnC/view?usp=drive_link,Salto,H800,6,Hormigón,800
+3/11/2025,https://drive.google.com/file/d/15CAW01cqfUgOJcTj9PftuV8Y9_TEXpP4/view?usp=drive_link,General Guido,H800,10,Hormigón,800
+3/11/2025,https://drive.google.com/file/d/15CAW01cqfUgOJcTj9PftuV8Y9_TEXpP4/view?usp=drive_link,General Guido,CH800,6,Chapa corrugada,800
+4/11/2025,https://drive.google.com/file/d/1b2-4_gHO8QYoYc7GouPs2_Zq5TTbM2QJ/view?usp=drive_link,Salto,H1000,4,Hormigón,1000
+7/11/2025,NO-2025-40612086-GDEBA-DOMIYSPGP,Nueve de Julio,CH800,2,Chapa corrugada,800
+7/11/2025,NO-2025-40612086-GDEBA-DOMIYSPGP,Nueve de Julio,H1000,2,Hormigón,1000
+7/11/2025,NO-2025-40612110-GDEBA-DOMIYSPGP,Salto,H800,4,Hormigón,800
+7/11/2025,NO-2025-40702133-GDEBA-DOMIYSPGP,Coronel Suárez,H1000,18,Hormigón,1000
+7/11/2025,NO-2025-40702133-GDEBA-DOMIYSPGP,Coronel Suárez,CH1000,2,Chapa corrugada,1000
+11/11/2025,NO-2025-41133261-GDEBA-DOMIYSPGP,General La Madrid,CH1000,5,Chapa corrugada,1000
+18/11/2025,NO-2025-42098326-GDEBA-DOMIYSPGP,General Guido,CH800,3,Chapa corrugada,800
+18/11/2025,,General Guido,H800,14,Hormigón,800
+26/11/2025,NO-2025-42098359-GDEBA-DOMIYSPGP,Chacabuco,H1000,15,Hormigón,1000
+26/11/2025,NO-2025-42098359-GDEBA-DOMIYSPGP,Chacabuco,CH1000,1,Chapa corrugada,1000
+28/11/2025,NO-2025-42098359-GDEBA-DOMIYSPGP,Chacabuco,H1000,15,Hormigón,1000
+28/11/2025,NO-2025-42098359-GDEBA-DOMIYSPGP,Chacabuco,CH1000,1,Chapa corrugada,1000
+28/11/2025,,Nueve de Julio,CH800,5,Chapa corrugada,800
+28/11/2025,,Nueve de Julio,CH1000,3,Chapa corrugada,1000
+28/11/2025,,Nueve de Julio,CH800,5,Chapa corrugada,800
+28/11/2025,,Nueve de Julio,CH1000,5,Chapa corrugada,1000
+2/12/2025,,Nueve de Julio,CH800,5,Chapa corrugada,800
+20/11/2025,25 de mayo,Veinticinco de Mayo,H1000,14,Hormigón,1000
+12/11/2025,,General La Madrid,CH1000,5,Chapa corrugada,1000
+4/12/2025,,Coronel Suárez,CH1000,1,Chapa corrugada,1000
+4/12/2025,,Coronel Suárez,H1000,7,Hormigón,1000
+12/12/2025,,Pila,CH800,5,Chapa corrugada,800
+15/12/2025,,Dolores,CH800,7,Chapa corrugada,800
+15/12/2025,,Dolores,CH1000,7,Chapa corrugada,1000
+16/12/2025,,Dolores,CH800,7,Chapa corrugada,800
+16/12/2025,,Dolores,CH1000,7,Chapa corrugada,1000
+17/12/2025,,Dolores,CH800,6,Chapa corrugada,800
+17/12/2025,,Dolores,CH1000,6,Chapa corrugada,1000
